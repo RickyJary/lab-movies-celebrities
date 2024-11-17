@@ -1,16 +1,15 @@
-//  Add your code here
 const mongoose = require('mongoose');
 
-const celebritySchema = new mongoose.Schema({
+const movieSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
     },
-    occupation: {
+    genre: {
         type: String,
         required: true
     },
-    catchPhrase: {
+    plot: {
         type: String,
         required: true
     }
@@ -19,14 +18,13 @@ const celebritySchema = new mongoose.Schema({
     virtuals: true,
 });
 
-celebritySchema.virtual("movies", {
-    ref: 'Movie',
+movieSchema.virtual("cast", {
+    ref: 'Celebrity',
     localField: '_id',
-    foreignField: 'celebs',
+    foreignField: 'movies',
     justOne: false,
 })
 
+const Movie = mongoose.model('Movie', movieSchema)
 
-const Celebrity = mongoose.model('Celebrity', celebritySchema)
-
-module.exports = Celebrity
+module.exports = Movie;
