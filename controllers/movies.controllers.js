@@ -23,3 +23,43 @@ module.exports.listMovie = (req, res, next) => {
     .then(movies =>res.render("movies/movies", { movies }))
     .catch(err => next(err))
 }
+
+module.exports.detailMovie = (req, res, next) => {
+    const { movieId } = req.params;
+    Movie.findById(movieId)
+    .populate("cast")
+    .then((movie) => {
+        console.log(movie)
+        res.render("movies/movie-details", { movie })
+    })
+    .catch(err => next(err))
+}
+
+module.exports.deleteMovie = (req, res, next) => {
+    const { movieId } = req.params;
+    Movie.findByIdAndDelete(movieId)
+    .then(()=>{
+        res.redirect("/movies/movies")
+    })
+    .catch(err => next(err))
+}
+
+module.exports.editMovie = (req, res, next) => {
+    const { movieId } = req.params;
+    Movie.findById(movieId)
+    .then((movie)=>{
+        res.render("movies/edit-movie", { movie })
+    })
+    .catch(err => next(err))
+}
+
+
+module.exports.doEditMovie = (req, res, next) => {
+    const { movieId } = req.params;
+  
+    Movie.findByIdAndUpdate(movieId, req.body, { new: true })
+      .then((updatedMovie) => {
+        res.redirect(`/movies/${updatedMovie._id}`);
+      })
+      .catch(err => next(err));
+  };

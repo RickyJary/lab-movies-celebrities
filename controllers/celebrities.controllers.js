@@ -18,9 +18,9 @@ module.exports.doCreate = (req, res, next) => {
 
 module.exports.listCeleb = (req, res, next) => {
     Celebrity.find()
-    .then((celeb)=>{
-        console.log(celeb)
-        res.render('celebrities/celebrities', { celeb })
+    .then((celebs)=>{
+        console.log(celebs)
+        res.render('celebrities/celebrities', { celebs })
     })
     .catch(err => next(err));
 }

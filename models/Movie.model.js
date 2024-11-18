@@ -12,19 +12,15 @@ const movieSchema = new mongoose.Schema({
     plot: {
         type: String,
         required: true
-    }
-},
-{
-    virtuals: true,
+    },
+    cast: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Celebrity',
+        }
+    ]
 });
 
-movieSchema.virtual("cast", {
-    ref: 'Celebrity',
-    localField: '_id',
-    foreignField: 'movies',
-    justOne: false,
-})
-
-const Movie = mongoose.model('Movie', movieSchema)
+const Movie = mongoose.model('Movie', movieSchema);
 
 module.exports = Movie;

@@ -10,7 +10,11 @@ const {
 const { 
   createMovie,
   doCreateMovie,
-  listMovie
+  listMovie,
+  detailMovie,
+  deleteMovie,
+  editMovie,
+  doEditMovie
  } = require("../controllers/movies.controllers");
 
 /* GET home page */
@@ -27,6 +31,10 @@ router.get("/celebrities/celebrities", listCeleb)
 
 router.get("/movies/new-movie", createMovie);
 router.post("/movies/new-movie", doCreateMovie);
-router.get("/movies/movies", listMovie)
+router.get("/movies/movies", listMovie);
+router.get("/movies/:movieId", detailMovie)
+router.post("/movies/:movieId/delete", deleteMovie)
+router.get("/movies/:movieId/edit", editMovie)
+router.post("/movies/:movieId/edit", doEditMovie)
 
 module.exports = router;
